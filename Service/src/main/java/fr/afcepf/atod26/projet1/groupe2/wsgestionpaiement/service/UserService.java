@@ -64,6 +64,7 @@ public class UserService implements IUser {
         daoUser = paramDaoUser;
     }
 
+
     @Override
     public DTOUser connexion(DTOUser paramUser) throws BanqueException {
         User entity = new User();

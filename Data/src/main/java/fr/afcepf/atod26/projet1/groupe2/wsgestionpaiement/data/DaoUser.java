@@ -57,7 +57,6 @@ public class DaoUser implements IDaoUser {
                         paramUser.getCryptogramme()};
         List<User> userList = (List) hibernateTemplate
                 .findByNamedParam(query, noms, valeurs);
-        log.info("liste : " + userList.toString());
         if (userList.size() == 1) {
             user = userList.get(0);
             log.info("le user DAO :" + user.getNumeroCarteBancaire());
@@ -114,7 +113,6 @@ public class DaoUser implements IDaoUser {
         List<Compte> compteList = (List) hibernateTemplate.findByNamedParam(
                 "SELECT c FROM Compte c WHERE c.user.id = :pUser", noms,
                 valeurs);
-        log.info("la liste DAO : " + compteList.toString());
         return compteList.get(0);
     }
 
@@ -133,6 +131,8 @@ public class DaoUser implements IDaoUser {
     public boolean verifierSoldeCompte(double paramMontant, Compte paramCompte)
             throws BanqueException {
         double soldeTotal = 0;
+        log.info("le compte :"+paramCompte.getId());
+        log.info("le montant :"+paramMontant);
         List<Operation> operationList = getOperationByCompte(paramCompte);
         for (Operation operation : operationList) {
             if (operation.getClass().equals(Credit.class)) {

@@ -7,8 +7,14 @@ import fr.afcepf.atod26.projet1.groupe2.wsgestionpaiement.data.DaoUser;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,6 +24,9 @@ import java.util.List;
 /**
  * classe de test.
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = "classpath:test-context.xml")
+@TestExecutionListeners(DependencyInjectionTestExecutionListener.class)
 public class TestData {
     private User pasBonUser;
     private User retourConnexionBonne;
@@ -41,7 +50,9 @@ public class TestData {
     private Operation operation;
     private List<Compte> compteList = new ArrayList<>();
     private List<Operation> operationList = new ArrayList<>();
-    private IDaoUser daoUser = new DaoUser();
+
+    @Autowired
+    private IDaoUser daoUser;
 
     public TestData() {
         operation = new Credit(identifiantCredit, montantCredit, libelleCredit, new Date());
@@ -52,45 +63,6 @@ public class TestData {
         retourConnexionBonne = new User(numeroCarte, moisExpi, anneeExpi, crypto, compteList);
         compte = new Compte(operationList, retourConnexionBonne);
         compteList.add(compte);
-
-        daoUser = new DaoUser() {
-            @Override
-            public User connexion(User paramUser) throws BanqueException {
-                if (paramUser.getCryptogramme() == mauvaisCrypto) {
-                    throw new BanqueException(BanqueException.ErrorCode.CONNEXION_FAILED);
-                } else
-                    return retourConnexionBonne;
-            }
-
-            @Override
-            public boolean verifierSoldeCompte(double paramMontant,
-                                               Compte paramCompte)
-                    throws BanqueException {
-                return paramMontant == debitCorrect;
-            }
-
-            @Override
-            public double debit(double paramMontant,
-                                Compte paramCompte)
-                    throws BanqueException {
-                if (verifierSoldeCompte(paramMontant, paramCompte)){
-                    return resultatDebit;
-                }
-                else {
-                    throw new BanqueException("debit trop eleve", BanqueException.ErrorCode.DEBIT_TROP_ELEVE);
-                }
-            }
-
-            @Override
-            public boolean checkCodeSecurity(int paramCode) throws BanqueException {
-                if (paramCode == codeSecurityCorrect){
-                    return true;
-                }
-                else {
-                    throw new BanqueException("pas bon code", BanqueException.ErrorCode.MAUVAIS_CODE);
-                }
-            }
-        };
     }
 
     /**
