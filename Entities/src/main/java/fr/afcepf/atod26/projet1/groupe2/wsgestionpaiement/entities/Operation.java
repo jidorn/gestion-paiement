@@ -70,6 +70,26 @@ public class Operation {
     }
 
     /**
+     * constructeur avec tout les params pour les tests.
+     * @param paramId id.
+     * @param paramMontant montant.
+     * @param paramLibelle libelle.
+     * @param paramDateOperation operation.
+     * @param paraCompte compte.
+     */
+    public Operation(int paramId,
+                     double paramMontant,
+                     String paramLibelle,
+                     Date paramDateOperation,
+                     Compte paraCompte) {
+        id = paramId;
+        montant = paramMontant;
+        libelle = paramLibelle;
+        dateOperation = paramDateOperation;
+        compte = paraCompte;
+    }
+
+    /**
      * constructeur avec params sans id.
      *
      * @param paramMontant       montant.
@@ -83,6 +103,8 @@ public class Operation {
         libelle = paramLibelle;
         dateOperation = paramDateOperation;
     }
+
+
 
     /**
      * constructeur avec tout les params.
@@ -173,5 +195,29 @@ public class Operation {
     public void setDateOperation(
             Date paramDateOperation) {
         dateOperation = paramDateOperation;
+    }
+
+    /**
+     * le setter.
+     * @param paraMontant le setter.
+     */
+    public void setMontant(double paraMontant) {
+        this.montant = paraMontant;
+    }
+
+    /**
+     * le getter.
+     * @return le getter.
+     */
+    public Compte getCompte() {
+        return compte;
+    }
+
+    /**
+     * le setter.
+     * @param paramCompte le setter.
+     */
+    public void setCompte(Compte paramCompte) {
+        this.compte = paramCompte;
     }
 }

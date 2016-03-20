@@ -23,7 +23,7 @@ CREATE TABLE compte_utilisateur (
 INSERT INTO compte_utilisateur (numero_compte, id_user) VALUES
   (1,1),
   (2,2),
-  (3,3),
+  (3,3);
 
 CREATE TABLE operation (
   id_operation int(10) auto_increment NOT NULL PRIMARY KEY,
