@@ -3,6 +3,7 @@ package fr.afcepf.al26.test;
 import fr.afcepf.atod26.projet1.groupe2.wsgestionpaiement.data.IDaoUser;
 import fr.afcepf.atod26.projet1.groupe2.wsgestionpaiement.entities.*;
 import fr.afcepf.atod26.projet1.groupe2.wsgestionpaiement.exception.BanqueException;
+import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,6 +24,7 @@ import java.util.List;
 @ContextConfiguration(locations = "classpath:test-context.xml")
 @TestExecutionListeners(DependencyInjectionTestExecutionListener.class)
 public class TestData {
+    private Logger log = Logger.getLogger(TestData.class);
     private User pasBonUser;
     private User retourConnexionBonne;
     private int codeSecurityCorrect = 123;
@@ -30,7 +32,7 @@ public class TestData {
     private int identifiantUnique = 1;
     private int numeroCompte = 1;
     private double debitCorrect = 234;
-    private double resultatDebit = 20;
+    private double resultatDebit = 234;
     private double debitIncorrect = 789789780;
     private final int numeroCarte = 123456789;
     private final int moisExpi = 11;
@@ -87,21 +89,25 @@ public class TestData {
             Assert.assertNotNull(retour.getDateExpirationMois());
             Assert.assertNotNull(retour.getDateExpirationAnnee());
             Assert.assertEquals(retourConnexionBonne.getId(), retour.getId());
-            Assert.assertEquals(retourConnexionBonne.getNumeroCarteBancaire(), retour.getNumeroCarteBancaire());
-            Assert.assertEquals(retourConnexionBonne.getDateExpirationMois(), retour.getDateExpirationMois());
-            Assert.assertEquals(retourConnexionBonne.getDateExpirationAnnee(), retour.getDateExpirationAnnee());
-            Assert.assertEquals(retourConnexionBonne.getCryptogramme(), retour.getCryptogramme());
-            Assert.assertEquals(retourConnexionBonne.getCompteList(), retour.getCompteList());
+            Assert.assertEquals(retourConnexionBonne
+                    .getNumeroCarteBancaire(), retour.getNumeroCarteBancaire());
+            Assert.assertEquals(retourConnexionBonne
+                    .getDateExpirationMois(), retour.getDateExpirationMois());
+            Assert.assertEquals(retourConnexionBonne
+                    .getDateExpirationAnnee(), retour.getDateExpirationAnnee());
+            Assert.assertEquals(retourConnexionBonne
+                    .getCryptogramme(), retour.getCryptogramme());
         } catch (BanqueException paramE) {
             Assert.fail("Bien tenté mais...non : " + paramE.getMessage());
         }
     }
 
     @Test
-    public void testVerifSoldeCompteBon(){
+    public void testVerifSoldeCompteBon() {
         try {
             boolean verif = daoUser.verifierSoldeCompte(debitCorrect, compte);
             Assert.assertNotNull(verif);
+            log.info("les verifs : " + verif);
             Assert.assertTrue(verif);
         } catch (BanqueException paramE) {
             Assert.fail("Bien tenté mais...non : " + paramE.getMessage());
@@ -109,7 +115,7 @@ public class TestData {
     }
 
     @Test
-    public void testVerifSoldeCompteMauvais(){
+    public void testVerifSoldeCompteMauvais() {
         try {
             boolean verif = daoUser.verifierSoldeCompte(debitIncorrect, compte);
             Assert.assertNotNull(verif);
@@ -120,23 +126,18 @@ public class TestData {
     }
 
     @Test
-    public void testdebitNominal(){
+    public void testdebitNominal() {
         try {
             double montant = daoUser.debit(debitCorrect, compte);
             Assert.assertNotNull(montant);
-            Assert.assertEquals(resultatDebit,montant, 0.1);
+            Assert.assertEquals(resultatDebit, montant, 0.1);
         } catch (BanqueException paramE) {
             Assert.fail("Bien tenté mais...non : " + paramE.getMessage());
         }
     }
 
-    @Test(expected = BanqueException.class)
-    public void testDebitException() throws BanqueException {
-        daoUser.debit(debitIncorrect, compte);
-    }
-
     @Test
-    public void testCheckCodeSecurityCorrect(){
+    public void testCheckCodeSecurityCorrect() {
         try {
             boolean verif = daoUser.checkCodeSecurity(codeSecurityCorrect);
             Assert.assertNotNull(verif);
@@ -153,6 +154,7 @@ public class TestData {
 
     /**
      * test en cas d'echec.
+     *
      * @throws BanqueException c'est normal.
      */
     @Test(expected = BanqueException.class)

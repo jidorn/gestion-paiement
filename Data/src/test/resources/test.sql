@@ -51,11 +51,6 @@ INSERT INTO operation (TYPE_OPERATION, montant_operation, libelle_operation, dat
   ("DEBIT",300,"achat","2016-01-15 12:29:06",3),
   ("CREDIT",300,"remboursement","2016-01-15 12:29:05",3),
   ("DEBIT",1000,"fdsef","2016-01-15 12:29:05",3),
-  ("CREDIT",10,"grzegrzgagf","2016-01-15 12:29:05",3),
-  ("CREDIT",1200,"salaire","2016-01-15 12:29:05",4),
-  ("DEBIT",300,"achat","2016-01-15 12:29:06",4),
-  ("CREDIT",300,"remboursement","2016-01-15 12:29:05",4),
-  ("DEBIT",1000,"fdsef","2016-01-15 12:29:05",4),
-  ("CREDIT",10,"grzegrzgagf","2016-01-15 12:29:05",4);
+  ("CREDIT",10,"grzegrzgagf","2016-01-15 12:29:05",3);
 
 
