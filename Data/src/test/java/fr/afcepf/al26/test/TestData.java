@@ -135,6 +135,7 @@ public class TestData {
             Assert.fail("Bien tenté mais...non : " + paramE.getMessage());
         }
     }
+/*
 
     @Test
     public void testCheckCodeSecurityCorrect() {
@@ -146,10 +147,17 @@ public class TestData {
             Assert.fail("Bien tenté mais...non : " + paramE.getMessage());
         }
     }
+*/
 
-    @Test(expected = BanqueException.class)
+    @Test
     public void testCheckCodeSecurityIncorrect() throws BanqueException {
-        daoUser.checkCodeSecurity(codeSecurityIncorrect);
+        try {
+            boolean verif = daoUser.checkCodeSecurity(codeSecurityIncorrect);
+            Assert.assertNotNull(verif);
+            Assert.assertFalse(verif);
+        } catch (BanqueException paramE) {
+            Assert.fail("Bien tenté mais...non : " + paramE.getMessage());
+        }
     }
 
     /**
