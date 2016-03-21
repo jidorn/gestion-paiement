@@ -45,6 +45,27 @@ public class Credit extends Operation {
     }
 
     /**
+     * constructeur avec tout les params pour les tests.
+     *
+     * @param paramId            id.
+     * @param paramMontant       montant.
+     * @param paramLibelle       libelle.
+     * @param paramDateOperation operation.
+     * @param paraCompte         compte.
+     */
+    public Credit(int paramId,
+                  double paramMontant,
+                  String paramLibelle,
+                  Date paramDateOperation,
+                  Compte paraCompte) {
+        super(paramId,
+                paramMontant,
+                paramLibelle,
+                paramDateOperation,
+                paraCompte);
+    }
+
+    /**
      * constructeur avec tout les params.
      *
      * @param paramMontant       Montant.
@@ -55,7 +76,7 @@ public class Credit extends Operation {
     public Credit(double paramMontant,
                   String paramLibelle,
                   Date paramDateOperation,
-                  Compte paramCompte)  {
+                  Compte paramCompte) {
         super(paramMontant, paramLibelle, paramDateOperation, paramCompte);
     }
 

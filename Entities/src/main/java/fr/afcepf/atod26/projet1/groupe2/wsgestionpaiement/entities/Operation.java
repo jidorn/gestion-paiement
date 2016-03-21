@@ -71,11 +71,12 @@ public class Operation {
 
     /**
      * constructeur avec tout les params pour les tests.
-     * @param paramId id.
-     * @param paramMontant montant.
-     * @param paramLibelle libelle.
+     *
+     * @param paramId            id.
+     * @param paramMontant       montant.
+     * @param paramLibelle       libelle.
      * @param paramDateOperation operation.
-     * @param paraCompte compte.
+     * @param paraCompte         compte.
      */
     public Operation(int paramId,
                      double paramMontant,
@@ -103,7 +104,6 @@ public class Operation {
         libelle = paramLibelle;
         dateOperation = paramDateOperation;
     }
-
 
 
     /**
@@ -199,6 +199,7 @@ public class Operation {
 
     /**
      * le setter.
+     *
      * @param paraMontant le setter.
      */
     public void setMontant(double paraMontant) {
@@ -207,6 +208,7 @@ public class Operation {
 
     /**
      * le getter.
+     *
      * @return le getter.
      */
     public Compte getCompte() {
@@ -215,6 +217,7 @@ public class Operation {
 
     /**
      * le setter.
+     *
      * @param paramCompte le setter.
      */
     public void setCompte(Compte paramCompte) {

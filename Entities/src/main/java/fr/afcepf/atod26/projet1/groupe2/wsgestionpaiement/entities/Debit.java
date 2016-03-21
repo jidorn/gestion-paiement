@@ -46,6 +46,24 @@ public class Debit extends Operation {
     }
 
     /**
+     * constructeur avec tout les params pour les tests.
+     *
+     * @param paramId            id.
+     * @param paramMontant       montant.
+     * @param paramLibelle       libelle.
+     * @param paramDateOperation operation.
+     * @param paraCompte         compte.
+     */
+    public Debit(int paramId,
+                 double paramMontant,
+                 String paramLibelle,
+                 Date paramDateOperation,
+                 Compte paraCompte) {
+        super(paramId, paramMontant, paramLibelle,
+                paramDateOperation, paraCompte);
+    }
+
+    /**
      * constructeur avec tout les params.
      *
      * @param paramMontant       Montant.
@@ -53,8 +71,12 @@ public class Debit extends Operation {
      * @param paramDateOperation la date.
      * @param paramCompte        le compte.
      */
-    public Debit(double paramMontant, String paramLibelle, Date paramDateOperation, Compte paramCompte) {
-        super(paramMontant, paramLibelle, paramDateOperation, paramCompte);
+    public Debit(double paramMontant,
+                 String paramLibelle,
+                 Date paramDateOperation,
+                 Compte paramCompte) {
+        super(paramMontant, paramLibelle,
+                paramDateOperation, paramCompte);
     }
 
 }

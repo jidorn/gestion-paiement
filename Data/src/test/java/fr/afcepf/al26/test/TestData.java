@@ -3,20 +3,15 @@ package fr.afcepf.al26.test;
 import fr.afcepf.atod26.projet1.groupe2.wsgestionpaiement.data.IDaoUser;
 import fr.afcepf.atod26.projet1.groupe2.wsgestionpaiement.entities.*;
 import fr.afcepf.atod26.projet1.groupe2.wsgestionpaiement.exception.BanqueException;
-import fr.afcepf.atod26.projet1.groupe2.wsgestionpaiement.data.DaoUser;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -32,6 +27,8 @@ public class TestData {
     private User retourConnexionBonne;
     private int codeSecurityCorrect = 123;
     private int codeSecurityIncorrect = 163;
+    private int identifiantUnique = 1;
+    private int numeroCompte = 1;
     private double debitCorrect = 234;
     private double resultatDebit = 20;
     private double debitIncorrect = 789789780;
@@ -42,9 +39,9 @@ public class TestData {
     private final int mauvaisCrypto = 852;
     private final int identifiantCredit = 1;
     private final int identifiantDebit = 2;
-    private final double montantCredit = 565;
+    private final double montantCredit = 1200;
     private final double montantDebit = 135;
-    private final String libelleCredit = "credit";
+    private final String libelleCredit = "salaire";
     private final String libelleDebit = "cebit";
     private Compte compte;
     private Operation operation;
@@ -55,39 +52,24 @@ public class TestData {
     private IDaoUser daoUser;
 
     public TestData() {
-        operation = new Credit(identifiantCredit, montantCredit, libelleCredit, new Date());
+        compte = new Compte();
+        compte.setId(identifiantUnique);
+        User userTemp = new User();
+        userTemp.setId(identifiantUnique);
+        userTemp.setNumeroCarteBancaire(numeroCarte);
+        userTemp.setDateExpirationMois(moisExpi);
+        userTemp.setDateExpirationAnnee(anneeExpi);
+        userTemp.setCryptogramme(crypto);
+        operation = new Credit(identifiantCredit, montantCredit, libelleCredit, new Date(), compte);
         operationList.add(operation);
-        operation = new Debit(identifiantDebit, montantDebit, libelleDebit, new Date());
+        operation = new Debit(identifiantDebit, montantDebit, libelleDebit, new Date(), compte);
         operationList.add(operation);
-        pasBonUser = new User(numeroCarte, moisExpi, anneeExpi, mauvaisCrypto, compteList);
-        retourConnexionBonne = new User(numeroCarte, moisExpi, anneeExpi, crypto, compteList);
-        compte = new Compte(operationList, retourConnexionBonne);
+        compte.setOperationList(operationList);
+        compte.setUser(userTemp);
         compteList.add(compte);
-    }
-
-    /**
-     * methode d'initialisation avant chaque test.
-     * Regénération de la base de donnees pour la coherence des tests.
-     */
-    @Before
-    public void setUp() {
-        /*
-        BeanFactory bf =
-                new ClassPathXmlApplicationContext(
-                        "classpath:springData.xml");
-        IDaoUser a = (DaoUser) bf.getBean("DaoUser");
-        */
-
-        String pathDotBat = Thread.currentThread()
-                .getContextClassLoader()
-                .getResource("creeBase.bat")
-                .getPath();//URL encode %20= espace
-        try {
-            Process process = Runtime.getRuntime().exec(pathDotBat);
-            process.waitFor();
-        } catch (IOException | InterruptedException paramE) {
-            paramE.printStackTrace();
-        }
+        userTemp.setCompteList(compteList);
+        pasBonUser = new User(numeroCarte, moisExpi, anneeExpi, mauvaisCrypto, compteList);
+        retourConnexionBonne = userTemp;
     }
 
     /**
