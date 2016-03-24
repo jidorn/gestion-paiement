@@ -27,7 +27,7 @@ public class TestData {
     private Logger log = Logger.getLogger(TestData.class);
     private User pasBonUser;
     private User retourConnexionBonne;
-    private int codeSecurityCorrect = 123;
+    //private int codeSecurityCorrect = 123;
     private int codeSecurityIncorrect = 163;
     private int identifiantUnique = 1;
     private int numeroCompte = 1;

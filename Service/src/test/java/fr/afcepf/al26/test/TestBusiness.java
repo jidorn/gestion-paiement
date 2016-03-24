@@ -13,6 +13,11 @@ import org.easymock.EasyMock;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,6 +26,9 @@ import java.util.List;
 /**
  * Created by Stagiaire on 03/03/2016.
  */
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration
 public class TestBusiness {
     private static IUser service;
     private static IDaoUser mockData;
@@ -79,7 +87,6 @@ public class TestBusiness {
             paramE.printStackTrace();
         }
     }
-/*
     @Test
     public void testConnexionNominale(){
         try {
@@ -100,5 +107,4 @@ public class TestBusiness {
             throws BanqueException{
         service.connexion(pasBonUserDTO);
     }
-    */
 }
