@@ -81,6 +81,7 @@ public class TestData {
     public void testConnexionNominale() {
         try {
             User retour = daoUser.connexion(retourConnexionBonne);
+            log.info(retour.toString());
             Assert.assertNotNull(retour);
             Assert.assertNotNull(retour.getId());
             Assert.assertNotNull(retour.getCompteList());

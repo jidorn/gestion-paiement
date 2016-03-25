@@ -57,6 +57,8 @@ public class DaoUser implements IDaoUser {
                         paramUser.getCryptogramme()};
         List<User> userList = (List) hibernateTemplate
                 .findByNamedParam(query, noms, valeurs);
+        log.info("taille de la liste : "+userList.size());
+        log.info("les users : "+userList.toString());
         if (userList.size() == 1) {
             user = userList.get(0);
             log.info("le user DAO :" + user.getNumeroCarteBancaire());
